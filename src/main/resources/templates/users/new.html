@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание пользователя</title>
+</head>
+<body>
+<div>
+    <form autocomplete="off" th:action="@{/admin}" th:method="post" th:object="${user}">
+        <table border="4" style="border-color: blue; border-radius: 7px;">
+            <tr>
+                <th><label for="name">Имя</label></th>
+                <th><label for="lastname">Фамилия</label></th>
+                <th><label for="age">Возраст</label></th>
+                <th><label for="username">Имя пользователя</label></th>
+                <th><label for="password">Пароль</label></th>
+                <th th:each="role : ${roles}">
+                    <label th:for="${role.getName()}" th:utext="${role.getName()}">Роль</label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <input id="name"
+                           placeholder="Имя"
+                           size="10"
+                           th:field="*{name}"
+                           type="text"/>
+                </td>
+                <td>
+                    <input id="lastname"
+                           placeholder="Фамилия"
+                           size="10"
+                           th:field="*{lastName}"
+                           type="text"/>
+                </td>
+                <td>
+                    <input id="age"
+                           maxlength="3"
+                           placeholder="Возраст"
+                           size="7"
+                           th:field="*{age}"
+                           type="text"
+                           value="123"/>
+                </td>
+                <td>
+                    <input id="username"
+                           placeholder="Имя Пользователя"
+                           size="15"
+                           th:field="*{username}"
+                           type="text"/>
+                </td>
+                <td>
+                    <input id="password"
+                           placeholder="Пароль"
+                           size="20"
+                           th:field="*{password}"
+                           type="password"/>
+                </td>
+                <td th:each="role : ${roles}">
+                    <input th:id="${role.getName()}"
+                           th:name="rol"
+                           th:type="checkbox"
+                           th:value="${role.getRoleId()}"/>
+                </td>
+                <td style="border: 0">
+                    <input type="submit" value="Принять">
+                    <input type="reset" value="Сбросить">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div>
+    <form th:action="@{/logout}" th:method="GET">
+        <input type="submit" value="Выйти">
+    </form>
+</div>
+</body>
+</html>
