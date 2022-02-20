@@ -14,9 +14,7 @@
                 <th><label for="age">Возраст</label></th>
                 <th><label for="username">Имя пользователя</label></th>
                 <th><label for="password">Пароль</label></th>
-                <th th:each="role : ${roles}">
-                    <label th:for="${role.getName()}" th:utext="${role.getName()}">Роль</label>
-                </th>
+                <th><label for="rol">Роль</label></th>
             </tr>
             <tr>
                 <td>
@@ -34,7 +32,8 @@
                            type="text"/>
                 </td>
                 <td>
-                    <input id="age"
+                    <input pattern="[0-9]{,2}"
+                           id="age"
                            maxlength="3"
                            placeholder="Возраст"
                            size="7"
@@ -56,11 +55,10 @@
                            th:field="*{password}"
                            type="password"/>
                 </td>
-                <td th:each="role : ${roles}">
-                    <input th:id="${role.getName()}"
-                           th:name="rol"
-                           th:type="checkbox"
-                           th:value="${role.getRoleId()}"/>
+                <td>
+                    <select id="rol" name="rol">
+                        <option th:each="role : ${roles}" th:value="${role.getRoleId()}" th:utext="${role.getName()}">...</option>
+                    </select>
                 </td>
                 <td style="border: 0">
                     <input type="submit" value="Принять">

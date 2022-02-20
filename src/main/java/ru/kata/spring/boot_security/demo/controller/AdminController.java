@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,12 +34,10 @@ public class AdminController {
 
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user,
-                             @RequestParam(value = "rol") Long... longs) {
-        Set<Role> bufRoles = new HashSet<>();
+                             @RequestParam(value = "rol") ArrayList<Long> longs) {
         for (long l : longs) {
-            bufRoles.add(roleService.getRole(l));
+            user.getRoles().add(roleService.getRole(l));
         }
-        user.setRoles(bufRoles);
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -52,12 +51,10 @@ public class AdminController {
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id,
-                             @RequestParam(value = "rol") Long... longs) {
-        Set<Role> bufRoles = new HashSet<>();
+                             @RequestParam(value = "rol") ArrayList<Long> longs) {
         for (long l : longs) {
-            bufRoles.add(roleService.getRole(l));
+            user.getRoles().add(roleService.getRole(l));
         }
-        user.setRoles(bufRoles);
         userService.updateUser(user);
         return "redirect:/admin";
     }
@@ -71,7 +68,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("setRoles", roleService.getAllRoles());
+        model.addAttribute("roles", roleService.getAllRoles());
         return "users/edit";
     }
 }
