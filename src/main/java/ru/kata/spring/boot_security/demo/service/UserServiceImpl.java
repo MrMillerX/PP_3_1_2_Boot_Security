@@ -45,7 +45,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void updateUser(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
+        if (!user.getPassword().matches("\\$2a.+")) {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
         userDao.updateUser(user);
     }
 
