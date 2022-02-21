@@ -48,14 +48,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 }
-
-//<p>
-//<br>
-//    Роль: <label>
-//<br><br>
-//    Administrator: <input type="checkbox" name="nameREdin" value="ROLE_ADMINISTRATOR">
-//<br><br>
-//    User: <input type="checkbox" name="nameREdin" value="ROLE_USER">
-//<br><br>
-//</label>
-//</p>
