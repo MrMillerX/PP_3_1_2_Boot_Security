@@ -16,11 +16,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder encoder) {
         this.userDao = userDao;
+        this.encoder = encoder;
     }
 
     @Transactional
